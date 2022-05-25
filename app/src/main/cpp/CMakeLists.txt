@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.18.1)
 project(AsanTest)
 
 find_library(LIB_LOG log)
@@ -22,9 +22,10 @@ elseif ("${CMAKE_ANDROID_ARCH_ABI}" STREQUAL "x86_64")
     set(ARCH_STR "x86_64")
 endif()
 
+# TODO: Figure out how to wildcard the Clang version.
 find_file(ASAN
         NAMES libclang_rt.asan-${ARCH_STR}-android.so
-        HINTS ${HINT_PATH}/../lib64/clang/12.0.5/lib/linux)
+        HINTS ${HINT_PATH}/../lib64/clang/14.0.1/lib/linux)
 
 get_filename_component(ASAN_NAME ${ASAN} NAME)
 set(ASAN_NAME ${CMAKE_SOURCE_DIR}/../jniLibs/${CMAKE_ANDROID_ARCH_ABI}/${ASAN_NAME})
